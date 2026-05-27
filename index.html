@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Forbidden Prophet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0608;--parchment:#f0e6c8;--parchment-dark:#d4c49a;
+  --gold:#c9a84c;--gold-bright:#f0c040;--crimson:#8b0000;--crimson-light:#c0392b;
+  --emerald:#1a4a2e;--emerald-light:#2d7a4a;--purple:#2d0a4e;
+  --glow-gold:0 0 20px rgba(201,168,76,.6),0 0 40px rgba(201,168,76,.3);
+  --glow-red:0 0 20px rgba(139,0,0,.8),0 0 40px rgba(139,0,0,.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:'IM Fell English',serif;background:var(--ink);color:var(--parchment);overflow-x:hidden}
+/* Skip particles canvas on mobile — set via JS */
+#particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.page{display:none;min-height:100vh;position:relative;z-index:1;animation:pageReveal .8s ease forwards}
+.page.active{display:block}
+@keyframes pageReveal{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:linear-gradient(180deg,rgba(10,6,8,.97) 0%,rgba(10,6,8,.85) 100%);border-bottom:1px solid var(--gold);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1rem,3vw,1.4rem);color:var(--gold);text-shadow:var(--glow-gold);letter-spacing:2px;white-space:nowrap;flex-shrink:0}
+.nav-links{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:flex-end}
+.nav-links button{background:none;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:clamp(.55rem,.9vw,.7rem);letter-spacing:1.5px;text-transform:uppercase;color:var(--parchment-dark);transition:color .3s;padding:.3rem 0;position:relative}
+.nav-links button::after{content:'';position:absolute;bottom:0;left:0;right:100%;height:1px;background:var(--gold);transition:right .3s ease}
+.nav-links button:hover,.nav-links button.active{color:var(--gold);text-shadow:var(--glow-gold)}
+.nav-links button:hover::after,.nav-links button.active::after{right:0}
+.magic-divider{text-align:center;padding:1rem 0;color:var(--gold);font-size:1.2rem;letter-spacing:8px;text-shadow:var(--glow-gold);opacity:.7}
+.next-page-link{display:block;text-align:center;padding:3rem 0 4rem}
+.next-page-link button{background:none;border:none;cursor:pointer;font-family:'Cinzel Decorative',cursive;font-size:clamp(.8rem,2vw,1.1rem);letter-spacing:4px;color:var(--gold);text-shadow:var(--glow-gold);padding:1rem 3rem;border:1px solid rgba(201,168,76,.4);transition:all .4s ease}
+.next-page-link button:hover{border-color:var(--gold);box-shadow:var(--glow-gold)}
+.next-page-link .arrow-down{display:block;margin-top:.8rem;font-size:1.5rem;color:var(--gold);opacity:.6;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* HOME */
+#page-home{background:radial-gradient(ellipse at 50% 0%,rgba(45,10,78,.6) 0%,transparent 60%),radial-gradient(ellipse at 0% 100%,rgba(139,0,0,.3) 0%,transparent 50%),url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=70') center/cover fixed;background-blend-mode:multiply,multiply,normal}
+#page-home::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(5,2,8,.72);pointer-events:none;z-index:0}
+#page-home>*{position:relative;z-index:1}
+.home-header{padding-top:6rem;text-align:center}
+.home-masthead{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2.2rem,8vw,7rem);line-height:1;color:var(--gold);text-shadow:var(--glow-gold),0 0 80px rgba(201,168,76,.2);letter-spacing:4px;animation:flicker 8s infinite}
+@keyframes flicker{0%,95%,100%{opacity:1}96%{opacity:.85}97%{opacity:1}98%{opacity:.9}}
+.home-tagline{font-family:'Cinzel',serif;font-size:clamp(.65rem,1.5vw,.85rem);letter-spacing:8px;text-transform:uppercase;color:var(--parchment-dark);margin-top:.5rem;opacity:.8}
+.home-dateline{font-family:'Cinzel',serif;font-size:clamp(.6rem,1.2vw,.7rem);letter-spacing:4px;color:var(--gold);opacity:.6;margin-top:.3rem}
+.home-profile-section{display:flex;align-items:center;justify-content:center;gap:2rem;padding:2rem 1.5rem;flex-wrap:wrap}
+.profile-frame{width:clamp(100px,20vw,150px);height:clamp(100px,20vw,150px);border:2px solid var(--gold);box-shadow:var(--glow-gold),inset 0 0 20px rgba(201,168,76,.1);position:relative;overflow:hidden;flex-shrink:0;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%)}
+.profile-frame img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.profile-placeholder{width:100%;height:100%;background:radial-gradient(circle,rgba(45,10,78,.8),rgba(10,6,8,.95));display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gold);font-size:.55rem;letter-spacing:2px;text-align:center;font-family:'Cinzel',serif;text-transform:uppercase}
+.profile-placeholder .ph-icon{font-size:2.5rem;margin-bottom:.4rem}
+.home-haiku-intro{flex:1;min-width:260px;max-width:500px}
+.haiku-box{background:rgba(10,6,8,.7);border:1px solid rgba(201,168,76,.3);border-left:3px solid var(--gold);padding:1.5rem 2rem;position:relative}
+.haiku-box::before{content:'⚡';position:absolute;top:-.8rem;left:1.5rem;background:var(--ink);padding:0 .5rem;font-size:.9rem}
+.haiku-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:.8rem}
+.haiku-lines{font-style:italic;line-height:2;font-size:clamp(.85rem,1.8vw,1rem);color:var(--parchment)}
+.haiku-lines em{color:var(--gold-bright);font-style:normal}
+.teaser-section{max-width:860px;margin:0 auto;padding:1rem 1.5rem 2rem}
+.section-heading{font-family:'Cinzel Decorative',cursive;font-size:clamp(.9rem,2.5vw,1.6rem);color:var(--gold);text-align:center;letter-spacing:4px;margin-bottom:1.5rem;text-shadow:var(--glow-gold)}
+.section-heading span{color:var(--parchment)}
+.home-intro-text{max-width:760px;margin:1.5rem auto 0;text-align:center;font-size:clamp(.85rem,1.8vw,1rem);line-height:2;color:var(--parchment);padding:1.5rem;border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2)}
+.home-intro-text .drop-cap::first-letter{font-family:'UnifrakturMaguntia',cursive;font-size:4rem;float:left;line-height:.8;margin:.1em .1em 0 0;color:var(--gold);text-shadow:var(--glow-gold)}
+
+/* ASSETS */
+#page-assets{background:radial-gradient(ellipse at 80% 20%,rgba(26,74,46,.4) 0%,transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(139,0,0,.3) 0%,transparent 50%),url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=1200&q=70') center/cover fixed;background-blend-mode:multiply,multiply,normal}
+#page-assets::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(3,8,5,.78);pointer-events:none;z-index:0}
+#page-assets>*{position:relative;z-index:1}
+.assets-header{padding-top:6rem;text-align:center;padding-bottom:1rem}
+.assets-masthead{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,5rem);color:var(--gold);text-shadow:var(--glow-gold)}
+.assets-sub{font-family:'Cinzel',serif;font-size:clamp(.65rem,1.5vw,.75rem);letter-spacing:6px;text-transform:uppercase;color:var(--emerald-light);margin-top:.4rem}
+.assets-grid{max-width:1200px;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+.asset-card{background:rgba(5,12,8,.85);border:1px solid rgba(201,168,76,.25);position:relative;overflow:hidden;transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease}
+.asset-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 20px 60px rgba(0,0,0,.6),var(--glow-gold)}
+.asset-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.asset-type-badge{position:absolute;top:1rem;right:1rem;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;text-transform:uppercase;padding:.25rem .7rem;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);z-index:3}
+.asset-type-badge.private{background:rgba(139,0,0,.2);border-color:rgba(139,0,0,.6);color:var(--crimson-light)}
+.asset-video-wrap{aspect-ratio:16/9;background:rgba(0,0,0,.6);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;width:100%}
+.asset-video-wrap iframe{width:100%;height:100%;border:none;display:block;position:absolute;top:0;left:0}
+.video-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,10,78,.4) 0%,rgba(10,6,8,.3) 100%);pointer-events:none;z-index:1}
+.mini-play{width:50px;height:50px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--gold);opacity:.7;pointer-events:none;z-index:2;position:relative}
+.asset-info{padding:1.2rem 1.5rem 1.5rem}
+.asset-name{font-family:'Cinzel Decorative',cursive;font-size:clamp(.85rem,1.8vw,1rem);color:var(--gold);letter-spacing:1px;margin-bottom:.3rem}
+.asset-category{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--emerald-light);margin-bottom:.6rem}
+.asset-desc{font-size:.85rem;line-height:1.7;color:rgba(240,230,200,.7)}
+
+/* TRADES */
+#page-trades{background:radial-gradient(ellipse at 30% 30%,rgba(139,0,0,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(26,74,46,.3) 0%,transparent 50%),url('https://images.unsplash.com/photo-1568667256549-094345857637?w=1200&q=70') center/cover fixed;background-blend-mode:multiply,multiply,normal}
+#page-trades::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(5,2,8,.82);pointer-events:none;z-index:0}
+#page-trades>*{position:relative;z-index:1}
+.trades-header{padding-top:5.5rem;text-align:center;padding-bottom:1rem}
+.trades-masthead{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,5rem);color:var(--crimson-light);text-shadow:var(--glow-red)}
+.trades-sub{font-family:'Cinzel',serif;font-size:clamp(.6rem,1.5vw,.7rem);letter-spacing:6px;text-transform:uppercase;color:var(--parchment-dark);margin-top:.4rem;opacity:.7}
+.trades-container{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 4rem}
+.trades-intro{text-align:center;max-width:700px;margin:0 auto 3rem;font-size:clamp(.8rem,1.8vw,.9rem);line-height:1.9;color:rgba(240,230,200,.75);border:1px solid rgba(201,168,76,.2);padding:1.5rem;background:rgba(10,6,8,.6)}
+.score-banner{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.score-card{background:rgba(10,6,8,.88);border:2px solid rgba(201,168,76,.4);padding:1.5rem 2.5rem;text-align:center;min-width:140px;position:relative;transition:transform .3s,box-shadow .3s}
+.score-card:hover{transform:translateY(-4px);box-shadow:var(--glow-gold)}
+.score-card .universe{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.7}
+.score-card .score-num{font-family:'Cinzel Decorative',cursive;font-size:clamp(1.8rem,4vw,2.5rem);color:var(--gold);line-height:1}
+.score-card .score-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--parchment-dark);opacity:.5}
+.score-card.highlight{border-color:var(--gold);box-shadow:var(--glow-gold)}
+.score-vs{font-family:'UnifrakturMaguntia',cursive;font-size:2rem;color:var(--crimson-light);text-shadow:var(--glow-red)}
+.trade-section{margin-bottom:3rem}
+.trade-section-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(.9rem,2vw,1.1rem);color:var(--gold);letter-spacing:3px;margin-bottom:1.2rem;text-align:center;text-shadow:var(--glow-gold);display:flex;align-items:center;gap:1rem;justify-content:center}
+.trade-section-title::before,.trade-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold));opacity:.4;max-width:200px}
+.trade-section-title::after{background:linear-gradient(270deg,transparent,var(--gold))}
+.trade-table-wrap{overflow-x:auto;border:1px solid rgba(201,168,76,.2);box-shadow:0 0 40px rgba(0,0,0,.5)}
+.trade-table{width:100%;border-collapse:collapse;font-size:clamp(.75rem,1.5vw,.85rem);background:rgba(5,3,8,.9);min-width:500px}
+.trade-table thead tr{background:rgba(45,10,78,.8);border-bottom:2px solid rgba(201,168,76,.5)}
+.trade-table thead th{padding:.8rem 1rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-align:left;white-space:nowrap}
+.trade-table tbody tr{border-bottom:1px solid rgba(201,168,76,.1);transition:background .2s}
+.trade-table tbody tr:hover{background:rgba(201,168,76,.05)}
+.trade-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.trade-table td{padding:.75rem 1rem;color:var(--parchment);vertical-align:middle}
+.trade-table td.asset-cell{font-style:italic;color:var(--parchment-dark)}
+.trade-table td.points-cell{font-family:'Cinzel',serif;font-weight:700;color:var(--gold-bright);text-align:center}
+.trade-table td.universe-cell{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:1px;color:var(--emerald-light)}
+.trade-table .row-universe{background:rgba(45,10,78,.4)!important;border-top:1px solid rgba(201,168,76,.15);border-bottom:1px solid rgba(201,168,76,.15)}
+.trade-table .row-universe td{font-family:'Cinzel Decorative',cursive;font-size:.9rem;color:var(--gold);text-align:center;padding:.7rem;letter-spacing:3px}
+.trade-table .row-universe td span{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:2px;display:block;color:var(--parchment-dark);opacity:.6;margin-top:.2rem}
+.total-row{background:rgba(201,168,76,.1)!important}
+.total-row td{font-family:'Cinzel',serif;font-weight:700}
+.total-row td.points-cell{font-size:1.1rem;color:var(--gold-bright);text-shadow:var(--glow-gold)}
+.final-score-block{text-align:center;padding:2rem 1.5rem;margin-top:2rem;background:radial-gradient(ellipse,rgba(201,168,76,.08),transparent);border:1px solid rgba(201,168,76,.3);box-shadow:inset 0 0 40px rgba(201,168,76,.05)}
+.final-score-label{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:.5rem}
+.final-score-number{font-family:'Cinzel Decorative',cursive;font-size:clamp(3rem,8vw,6rem);color:var(--gold);line-height:1;text-shadow:var(--glow-gold)}
+.final-score-sub{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--parchment-dark);opacity:.6;margin-top:.3rem}
+.final-score-breakdown{display:flex;justify-content:center;gap:2rem;margin-top:1.5rem;flex-wrap:wrap;align-items:center}
+.breakdown-item{text-align:center}
+.breakdown-item .bi-num{font-family:'Cinzel Decorative',cursive;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--gold-bright);display:block}
+.breakdown-item .bi-lbl{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--parchment-dark);opacity:.6}
+
+/* NEWSPAPER */
+#page-newspaper{background:radial-gradient(ellipse at 50% 50%,rgba(45,10,78,.5) 0%,transparent 70%),url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&q=70') center/cover fixed;background-blend-mode:multiply,normal;min-height:100vh}
+#page-newspaper::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(5,2,10,.82);pointer-events:none;z-index:0}
+#page-newspaper>*{position:relative;z-index:1}
+.np-header{padding-top:5.5rem;text-align:center;padding-bottom:1rem}
+.np-title{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.8rem,6vw,5rem);color:var(--parchment);text-shadow:0 0 30px rgba(240,230,200,.3);line-height:1}
+.np-edition{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.8;margin-top:.3rem}
+.np-rule{border:none;border-top:3px double var(--gold);max-width:900px;margin:.8rem auto;opacity:.5}
+.book-wrapper{max-width:min(1100px,96vw);margin:0 auto;padding:0 1rem 2rem;position:relative;perspective:2000px}
+.book-stage{position:relative;width:100%;padding-bottom:62%}
+.book-page{position:absolute;inset:0;display:none;border:1px solid rgba(201,168,76,.3);background:linear-gradient(135deg,rgba(12,6,18,.97) 0%,rgba(8,4,14,.99) 100%);overflow:hidden;transform-origin:left center;transform-style:preserve-3d;box-shadow:4px 4px 40px rgba(0,0,0,.7),inset 0 0 80px rgba(0,0,0,.4)}
+.book-page.active{display:flex}
+.book-page::before{content:'';position:absolute;top:0;left:0;bottom:0;width:30px;background:linear-gradient(90deg,rgba(0,0,0,.4),transparent);pointer-events:none;z-index:10}
+.book-page::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(201,168,76,.04) 40px);pointer-events:none;z-index:0}
+.book-page.flip-out{display:flex;animation:flipOut .6s cubic-bezier(.645,.045,.355,1) forwards}
+.book-page.flip-in{display:flex;animation:flipIn .6s cubic-bezier(.645,.045,.355,1) forwards}
+.book-page.flip-back-out{display:flex;animation:flipBackOut .6s cubic-bezier(.645,.045,.355,1) forwards}
+.book-page.flip-back-in{display:flex;animation:flipBackIn .6s cubic-bezier(.645,.045,.355,1) forwards}
+@keyframes flipOut{0%{transform:rotateY(0deg);opacity:1}100%{transform:rotateY(-90deg);opacity:.3}}
+@keyframes flipIn{0%{transform:rotateY(90deg);opacity:.3}100%{transform:rotateY(0deg);opacity:1}}
+@keyframes flipBackOut{0%{transform:rotateY(0deg);opacity:1}100%{transform:rotateY(90deg);opacity:.3}}
+@keyframes flipBackIn{0%{transform:rotateY(-90deg);opacity:.3}100%{transform:rotateY(0deg);opacity:1}}
+.page-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;width:100%;height:100%;position:relative;z-index:1}
+.page-left,.page-right{padding:1.5rem clamp(.8rem,2vw,2rem);display:flex;flex-direction:column;justify-content:flex-start;gap:.8rem;overflow:hidden}
+.page-left{border-right:1px solid rgba(201,168,76,.15)}
+.page-num-strip{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.45;border-bottom:1px solid rgba(201,168,76,.15);padding-bottom:.5rem}
+.page-headline{font-family:'Cinzel Decorative',cursive;font-size:clamp(.7rem,1.5vw,1.1rem);color:var(--parchment);line-height:1.3;letter-spacing:.5px}
+.page-subhead{font-family:'Cinzel',serif;font-size:clamp(.5rem,1vw,.65rem);letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.8}
+.page-body{font-size:clamp(.65rem,1.2vw,.78rem);line-height:1.75;color:rgba(240,230,200,.72);text-align:justify;hyphens:auto;flex:1;overflow:hidden}
+.page-body p+p{text-indent:1em;margin-top:.3rem}
+.page-video{aspect-ratio:16/9;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.25);flex-shrink:0;background:#000}
+.page-video iframe{width:100%;height:100%;border:none;display:block}
+.page-video-cap{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--parchment-dark);opacity:.45;text-align:center;margin-top:.3rem;flex-shrink:0}
+.page-asset-tag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;display:inline-block;padding:.2rem .7rem;border:1px solid rgba(201,168,76,.35);color:var(--gold);background:rgba(201,168,76,.08);align-self:flex-start}
+.page-asset-tag.private-tag{color:var(--crimson-light);border-color:rgba(139,0,0,.4);background:rgba(139,0,0,.1)}
+.page-ornament{font-size:1.2rem;color:var(--gold);opacity:.25;text-align:center;flex-shrink:0;letter-spacing:8px}
+.cover-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;position:relative;z-index:1;padding:2rem;text-align:center}
+.cover-logo{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.5rem,5vw,4rem);color:var(--gold);text-shadow:var(--glow-gold);animation:flicker 6s infinite}
+.cover-edition{font-family:'Cinzel',serif;font-size:clamp(.55rem,1.2vw,.7rem);letter-spacing:6px;text-transform:uppercase;color:var(--parchment-dark);opacity:.8}
+.cover-rule{border:none;border-top:1px solid rgba(201,168,76,.4);width:80%;margin:.5rem auto}
+.cover-tagline{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(.8rem,2vw,1.1rem);color:var(--parchment);opacity:.9;line-height:1.6;max-width:600px}
+.cover-assets-list{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem .8rem;margin-top:.5rem;max-width:500px;width:100%}
+.cover-assets-list div{font-family:'Cinzel',serif;font-size:clamp(.45rem,.9vw,.6rem);letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.6;padding:.25rem;border-bottom:1px solid rgba(201,168,76,.15)}
+.cover-flip-hint{margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;cursor:pointer}
+.cover-flip-hint .hint-text{font-family:'Cinzel',serif;font-size:clamp(.55rem,1.2vw,.68rem);letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.8}
+.cover-flip-hint .hint-icon{font-size:1.8rem;color:var(--gold);animation:hintPulse 1.8s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(8px);opacity:1;text-shadow:var(--glow-gold)}}
+.cover-corner{position:absolute;color:var(--gold);opacity:.3;font-size:1.5rem;font-family:'UnifrakturMaguntia',cursive}
+.cover-corner.tl{top:1rem;left:1.5rem}.cover-corner.tr{top:1rem;right:1.5rem}.cover-corner.bl{bottom:1rem;left:1.5rem}.cover-corner.br{bottom:1rem;right:1.5rem}
+.book-controls{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:1.2rem 0 1.5rem;flex-wrap:wrap}
+.book-btn{background:none;border:1px solid rgba(201,168,76,.4);cursor:pointer;color:var(--gold);font-family:'Cinzel',serif;font-size:clamp(.55rem,1.2vw,.68rem);letter-spacing:3px;text-transform:uppercase;padding:.6rem 1.5rem;transition:all .3s ease;display:flex;align-items:center;gap:.5rem}
+.book-btn:hover:not(:disabled){background:rgba(201,168,76,.1);border-color:var(--gold);box-shadow:var(--glow-gold)}
+.book-btn:disabled{opacity:.25;cursor:not-allowed}
+.page-dots{display:flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border:1px solid rgba(201,168,76,.2);background:rgba(10,6,8,.6)}
+.page-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(201,168,76,.5);background:transparent;cursor:pointer;transition:all .3s ease;position:relative}
+.page-dot.active{background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.6);border-color:var(--gold)}
+.page-dot:hover:not(.active){background:rgba(201,168,76,.3);border-color:var(--gold)}
+.page-counter{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--parchment-dark);opacity:.55;min-width:80px;text-align:center}
+.book-page .parchment-grain{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.private-page{background:linear-gradient(135deg,rgba(20,4,8,.98) 0%,rgba(10,3,5,.99) 100%)!important}
+.private-page::after{background:repeating-linear-gradient(45deg,rgba(139,0,0,.04) 0px,rgba(139,0,0,.04) 2px,transparent 2px,transparent 12px)!important}
+
+/* =====================================================
+   POSTERS — Magical Pop-out System
+   ===================================================== */
+#page-posters{background:radial-gradient(ellipse at 30% 10%,rgba(139,0,0,.5) 0%,transparent 45%),radial-gradient(ellipse at 70% 90%,rgba(45,10,78,.6) 0%,transparent 50%),radial-gradient(ellipse at 90% 30%,rgba(26,74,46,.3) 0%,transparent 40%),url('https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?w=1200&q=70') center/cover fixed;background-blend-mode:multiply,multiply,multiply,normal}
+#page-posters::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(4,2,8,.88);pointer-events:none;z-index:0}
+#page-posters>*{position:relative;z-index:1}
+.posters-header{padding-top:6.5rem;text-align:center;padding-bottom:.5rem}
+.posters-masthead{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,5.5rem);color:var(--gold);text-shadow:var(--glow-gold);letter-spacing:3px}
+.posters-sub{font-family:'Cinzel',serif;font-size:clamp(.62rem,1.5vw,.72rem);letter-spacing:8px;text-transform:uppercase;color:var(--crimson-light);margin-top:.4rem;opacity:.85}
+.posters-decree{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(.8rem,1.8vw,.9rem);color:var(--parchment-dark);opacity:.65;margin-top:.6rem;letter-spacing:1px;padding:0 1rem}
+.posters-home-link{position:absolute;top:5.2rem;right:1.5rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.4);padding:.4rem 1.1rem;transition:all .35s ease;background:rgba(10,6,8,.6);z-index:10;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem}
+.posters-home-link::before{content:'⚡';font-style:normal}
+.posters-home-link:hover{background:rgba(201,168,76,.12);border-color:var(--gold);box-shadow:var(--glow-gold);color:var(--gold-bright)}
+.rune-banner{text-align:center;margin:.8rem 0 2rem;position:relative;display:flex;align-items:center;justify-content:center;gap:1rem}
+.rune-banner::before,.rune-banner::after{content:'';flex:1;max-width:300px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
+.rune-banner-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:.65;white-space:nowrap}
+.posters-grid{max-width:1280px;margin:0 auto 4rem;padding:0 1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+/* Poster card — normal state */
+.poster-card{position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer;background:rgba(5,2,10,.92);transition:transform .35s ease,box-shadow .35s ease}
+.poster-card::before{content:'';position:absolute;inset:0;z-index:4;border:2px solid rgba(201,168,76,.3);pointer-events:none;transition:border-color .45s ease,box-shadow .45s ease}
+.poster-card:hover::before{border-color:var(--gold);box-shadow:inset 0 0 40px rgba(201,168,76,.08),0 0 40px rgba(201,168,76,.25)}
+.poster-card:hover{transform:translateY(-6px) scale(1.02)}
+.poster-img-wrap{position:absolute;inset:0;z-index:1}
+.poster-img-wrap img,.poster-image{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,filter .5s ease;filter:saturate(.7) brightness(.65);position:absolute;inset:0}
+.poster-card:hover .poster-img-wrap img,.poster-card:hover .poster-image{transform:scale(1.06);filter:saturate(.9) brightness(.75)}
+.poster-tint{position:absolute;inset:0;z-index:2;pointer-events:none}
+.poster-info{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:1.8rem 1.2rem 1.2rem;background:linear-gradient(to top,rgba(4,2,8,.97) 0%,rgba(4,2,8,.7) 60%,transparent 100%)}
+.poster-number{font-family:'Cinzel Decorative',cursive;font-size:.55rem;letter-spacing:4px;color:var(--gold);opacity:.6;text-transform:uppercase;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+.poster-number::before{content:'';flex:1;height:1px;background:var(--gold);opacity:.35}
+.poster-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(.7rem,1.5vw,.95rem);color:var(--parchment);letter-spacing:1px;line-height:1.25;margin-bottom:.25rem;text-shadow:0 2px 12px rgba(0,0,0,.8);transition:color .35s}
+.poster-card:hover .poster-title{color:var(--gold-bright)}
+.poster-subtitle{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:3px;text-transform:uppercase;color:var(--parchment-dark);opacity:0;transition:opacity .45s ease,transform .45s ease;transform:translateY(6px)}
+.poster-card:hover .poster-subtitle{opacity:.55;transform:translateY(0)}
+.poster-ribbon{position:absolute;top:14px;left:14px;z-index:6;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:2.5px;text-transform:uppercase;padding:.3rem .7rem;background:rgba(4,2,8,.85);border:1px solid rgba(201,168,76,.35);color:var(--gold);opacity:0;transform:translateX(-6px);transition:opacity .4s ease,transform .4s ease}
+.poster-card:hover .poster-ribbon{opacity:1;transform:translateX(0)}
+/* Click-to-reveal hint */
+.poster-click-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:7;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:0;transition:opacity .3s}
+.poster-card:hover .poster-click-hint{opacity:1}
+.poster-click-hint .hint-orb{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--gold);animation:orbPulse 1.6s ease-in-out infinite;box-shadow:0 0 20px rgba(201,168,76,.4)}
+@keyframes orbPulse{0%,100%{box-shadow:0 0 10px rgba(201,168,76,.4)}50%{box-shadow:0 0 30px rgba(201,168,76,.8)}}
+.poster-click-hint .hint-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:rgba(4,2,8,.8);padding:.2rem .5rem;border:1px solid rgba(201,168,76,.3)}
+
+/* ─── MAGICAL LIGHTBOX OVERLAY ─── */
+#poster-lightbox{
+  position:fixed;inset:0;z-index:9000;
+  display:none;
+  align-items:center;justify-content:center;
+  cursor:pointer;
+}
+#poster-lightbox.open{display:flex}
+#poster-lightbox .lb-backdrop{
+  position:absolute;inset:0;
+  background:rgba(4,2,10,.0);
+  transition:background .4s ease;
+}
+#poster-lightbox.revealed .lb-backdrop{background:rgba(4,2,10,.92)}
+
+/* Rune ring: spins around the poster as it opens */
+#lb-rune-ring{
+  position:absolute;
+  width:min(92vw,680px);
+  height:min(92vw,680px);
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,.0);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+  z-index:9002;
+  transition:border-color .5s ease;
+}
+#lb-rune-ring.glow{border-color:rgba(201,168,76,.25);box-shadow:0 0 60px rgba(201,168,76,.15),inset 0 0 60px rgba(201,168,76,.08)}
+.lb-rune-char{
+  position:absolute;font-family:'UnifrakturMaguntia',cursive;
+  color:var(--gold);font-size:.85rem;opacity:0;
+  animation:none;
+  transition:opacity .3s;
+}
+#lb-rune-ring.glow .lb-rune-char{opacity:.5}
+
+/* The poster itself inside lightbox */
+#lb-poster-wrap{
+  position:relative;z-index:9003;
+  width:min(80vw,340px);
+  max-height:90vh;
+  cursor:default;
+  transform:scale(0) rotate(-8deg);
+  transition:transform .55s cubic-bezier(0.34,1.56,0.64,1),opacity .4s ease;
+  opacity:0;
+  pointer-events:none;
+}
+#lb-poster-wrap.popped{
+  transform:scale(1) rotate(0deg);
+  opacity:1;
+  pointer-events:auto;
+}
+#lb-poster-img{
+  width:100%;aspect-ratio:2/3;object-fit:cover;
+  border:3px solid var(--gold);
+  box-shadow:0 0 80px rgba(201,168,76,.5),0 0 150px rgba(201,168,76,.2);
+  display:block;
+}
+#lb-poster-info{
+  background:rgba(4,2,8,.95);
+  border:1px solid rgba(201,168,76,.4);
+  border-top:none;
+  padding:1rem 1.5rem 1.2rem;
+}
+#lb-poster-category{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--emerald-light);margin-bottom:.3rem}
+#lb-poster-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(.9rem,2.5vw,1.3rem);color:var(--gold-bright);text-shadow:var(--glow-gold);letter-spacing:1px}
+#lb-poster-subtitle{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--parchment-dark);opacity:.7;margin-top:.2rem}
+#lb-close-btn{
+  position:absolute;top:-14px;right:-14px;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(10,6,8,.95);border:1px solid var(--gold);
+  color:var(--gold);font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--glow-gold);z-index:9004;
+  transition:transform .3s,background .3s;
+}
+#lb-close-btn:hover{transform:rotate(90deg) scale(1.2);background:rgba(201,168,76,.15)}
+
+/* Sparkle particles burst */
+.lb-spark{
+  position:fixed;border-radius:50%;pointer-events:none;z-index:9010;
+  animation:lbSparkFly .9s ease forwards;
+}
+@keyframes lbSparkFly{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}
+}
+
+/* Gold dust streaks around poster when open */
+#lb-dust{position:absolute;inset:-40px;pointer-events:none;z-index:9001}
+.dust-mote{
+  position:absolute;border-radius:50%;
+  animation:dustFloat 3s ease-in-out infinite;
+  opacity:0;
+}
+@keyframes dustFloat{
+  0%{transform:translateY(0) scale(1);opacity:0}
+  20%{opacity:1}
+  80%{opacity:.6}
+  100%{transform:translateY(-60px) scale(0.3);opacity:0}
+}
+
+.posters-footer-note{text-align:center;padding:0 2rem 3rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.3}
+
+/* ─── LOADING ─── */
+#loading-screen{position:fixed;inset:0;z-index:9999;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .8s ease,visibility .8s}
+#loading-screen.gone{opacity:0;visibility:hidden;pointer-events:none}
+.loading-logo{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.8rem,6vw,5rem);color:var(--gold);text-shadow:var(--glow-gold);animation:flicker 2s infinite;text-align:center;padding:0 1rem}
+.loading-wand{font-size:3rem;animation:wandSpin 2s linear infinite;transform-origin:center}
+@keyframes wandSpin{0%{transform:rotate(0deg);filter:drop-shadow(0 0 8px gold)}50%{filter:drop-shadow(0 0 20px gold)}100%{transform:rotate(360deg);filter:drop-shadow(0 0 8px gold)}}
+.loading-bar{width:min(260px,80vw);height:2px;background:rgba(201,168,76,.2);position:relative;overflow:hidden}
+.loading-bar::after{content:'';position:absolute;top:0;left:0;height:100%;background:var(--gold);animation:loadBar 1.8s ease forwards}
+@keyframes loadBar{from{width:0%}to{width:100%}}
+.loading-text{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--parchment-dark);opacity:.6}
+.lightning-text{animation:lightning-glow 4s infinite}
+@keyframes lightning-glow{0%,88%,100%{text-shadow:var(--glow-gold)}90%{text-shadow:0 0 40px #fff,var(--glow-gold)}92%{text-shadow:var(--glow-gold)}94%{text-shadow:0 0 60px #fff,var(--glow-gold)}}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+/* RESPONSIVE */
+@media(max-width:900px){.posters-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+  .page-inner{grid-template-columns:1fr}
+  .page-left{border-right:none;border-bottom:1px solid rgba(201,168,76,.15)}
+  .book-stage{padding-bottom:0;height:auto;min-height:500px}
+  .book-page{position:relative;height:auto;min-height:500px}
+  .page-inner{height:auto}
+  .page-left,.page-right{overflow:visible}
+  .cover-assets-list{grid-template-columns:repeat(2,1fr)}
+  #lb-poster-wrap{width:min(88vw,320px)}
+}
+@media(max-width:560px){
+  .posters-grid{grid-template-columns:1fr}
+  .assets-grid{grid-template-columns:1fr}
+  .nav-links{gap:.5rem}
+  .home-profile-section{padding:1rem}
+  .book-controls{gap:.8rem}
+}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-logo">The Forbidden Prophet</div>
+  <div class="loading-wand">🪄</div>
+  <div class="loading-bar"></div>
+  <div class="loading-text">Summoning ancient magic…</div>
+</div>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="nav-bar">
+  <div class="nav-logo">The Forbidden Prophet</div>
+  <div class="nav-links">
+    <button onclick="showPage('home')" class="active" id="nav-home">Home</button>
+    <button onclick="showPage('assets')" id="nav-assets">Assets</button>
+    <button onclick="showPage('newspaper')" id="nav-newspaper">The Prophet</button>
+    <button onclick="showPage('trades')" id="nav-trades">Trade Wars</button>
+    <button onclick="showPage('posters')" id="nav-posters">Posters</button>
+  </div>
+</nav>
+
+<!-- PAGE 1 — HOME -->
+<div id="page-home" class="page active">
+  <div class="home-header">
+    <div class="home-masthead lightning-text">The Forbidden Prophet</div>
+    <div class="home-tagline">Wizarding World's Most Clandestine Publication</div>
+    <div class="home-dateline">Est. Year of the Dark Lord · Print & Digital · Uncensored</div>
+  </div>
+  <div class="magic-divider">⚜ · ✦ · ⚜ · ✦ · ⚜</div>
+  <div class="home-profile-section">
+    <div class="profile-frame">
+      <img src="profile.png" alt="Profile" loading="lazy" onerror="this.style.display='none'">
+      <div class="profile-placeholder">
+        <div class="ph-icon">🧙</div>
+        <div>Profile<br>Image</div>
+      </div>
+    </div>
+    <div class="home-haiku-intro">
+      <div class="haiku-box">
+        <div class="haiku-label">✦ A Haiku From The Forbidden Archives ✦</div>
+        <div class="haiku-lines">
+          Dark ink bleeds through parchment worn —<br>
+          <em>Forbidden truths</em> find their voice<br>
+          when all the owls mourn.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="teaser-section">
+    <div class="section-heading"><span>⚡</span> Teaser — <span>Watch Before The Ministry Bans It</span></div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/CIfHiGAC68Q?si=LEUUCWdIgETeKz-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+  </div>
+  <div class="home-intro-text">
+    <p class="drop-cap">Welcome, seeker of truth, to <em>The Forbidden Prophet</em> — the publication the Ministry of Magic does not want you to read. Born in the shadows of the wizarding world, we deal not in fairy tales but in the hard currency of power: assets, alliances, and the trades that reshape entire universes. Within these pages you shall find revelations of our most sacred relics, our darkest secrets, and the bold transactions that have cemented Wizarding World's dominance on the inter-universe stage. Tread carefully. What you learn here cannot be unlearned.</p>
+  </div>
+  <div class="next-page-link">
+    <button onclick="showPage('assets')">✦ &nbsp; Asset Reveal &nbsp; ✦</button>
+    <span class="arrow-down">↓</span>
+  </div>
+</div>
+
+<!-- PAGE 2 — ASSET REVEAL -->
+<div id="page-assets" class="page">
+  <div class="assets-header">
+    <div class="assets-masthead">Asset Reveal</div>
+    <div class="assets-sub">✦ The Wizarding World's Greatest Treasures — Unmasked ✦</div>
+  </div>
+  <div class="magic-divider">⚜ · ✦ · ⚜ · ✦ · ⚜</div>
+  <div class="assets-grid" id="assetsGrid">
+    <!-- Cards inserted lazily by JS to defer iframe load -->
+  </div>
+  <div class="next-page-link">
+    <button onclick="showPage('newspaper')">✦ &nbsp; To The Forbidden Prophet &nbsp; ✦</button>
+    <span class="arrow-down">↓</span>
+  </div>
+</div>
+
+<!-- PAGE 3 — NEWSPAPER (BOOK FLIP) -->
+<div id="page-newspaper" class="page">
+  <div class="np-header">
+    <div class="np-title">The Forbidden Prophet</div>
+    <div class="np-edition">Vol. MXIII · Special Assets Edition · Nine Pages of Truth</div>
+    <hr class="np-rule">
+  </div>
+  <div class="book-wrapper">
+    <div class="book-stage" id="bookStage">
+      <!-- COVER -->
+      <div class="book-page active" id="np-page-0">
+        <div class="parchment-grain"></div>
+        <div class="cover-inner">
+          <div class="cover-corner tl">⚜</div><div class="cover-corner tr">⚜</div><div class="cover-corner bl">✦</div><div class="cover-corner br">✦</div>
+          <div class="cover-logo">The Forbidden Prophet</div>
+          <div class="cover-edition">Special Assets Edition · Nine Sacred Relics Unveiled</div>
+          <hr class="cover-rule">
+          <div class="cover-tagline">"In these pages lie nine truths the Ministry fears most. Each asset a world unto itself — each secret a curse that binds."</div>
+          <div class="cover-assets-list">
+            <div>I · Monument</div><div>II · Philosophy</div><div>III · Weapon</div>
+            <div>IV · Iconic Char.</div><div>V · Villain</div><div>VI · Mentor</div>
+            <div>VII · Technology</div><div>VIII · Origin Story</div><div>IX · Private ·🔒</div>
+          </div>
+          <div class="cover-flip-hint" onclick="npFlip(1)">
+            <div class="hint-text">Touch to open · Turn the page</div>
+            <div class="hint-icon">⟶</div>
+          </div>
+        </div>
+      </div>
+      <!-- Pages 1-9 injected lazily by JS -->
+    </div>
+    <div class="book-controls">
+      <button class="book-btn prev-btn" id="npPrevBtn" onclick="npFlip(-1)" disabled><span class="btn-arrow">←</span> <span>Previous</span></button>
+      <div class="page-dots" id="npDots"></div>
+      <div class="page-counter" id="npCounter">Cover</div>
+      <button class="book-btn next-btn" id="npNextBtn" onclick="npFlip(1)"><span>Next</span> <span class="btn-arrow">→</span></button>
+    </div>
+  </div>
+  <div class="next-page-link">
+    <button onclick="showPage('trades')">✦ &nbsp; Trade Wars &nbsp; ✦</button>
+    <span class="arrow-down">↓</span>
+  </div>
+</div>
+
+<!-- PAGE 4 — TRADE WARS -->
+<div id="page-trades" class="page">
+  <div class="trades-header">
+    <div class="trades-masthead">Trade Wars</div>
+    <div class="trades-sub">The Great Inter-Universe Asset Exchange — Documented</div>
+  </div>
+  <div class="magic-divider">⚜ · ✦ · ⚜ · ✦ · ⚜</div>
+  <div class="trades-container">
+    <div class="trades-intro">In the grand arena of inter-universe commerce, Wizarding World has played the game with cunning, wisdom, and the occasional touch of dark magic. Below you will find the complete ledger of every asset sold and acquired — the trades that built our empire, and the alliances that defined this age.</div>
+    <div class="trade-section">
+      <div class="trade-section-title">Assets We Acquired — From Other Universes to Wizarding World</div>
+      <div class="trade-table-wrap">
+        <table class="trade-table">
+          <thead><tr><th>Asset We Acquired</th><th>Category</th><th style="text-align:center">Points</th><th>Sold by Universe</th></tr></thead>
+          <tbody>
+            <tr class="row-universe"><td colspan="4">Other Universes → Wizarding World <span>Assets brought in</span></td></tr>
+            <tr><td class="asset-cell">Mjolnir</td><td>Weapon</td><td class="points-cell">100</td><td class="universe-cell">⚡ Avengers</td></tr>
+            <tr><td class="asset-cell">Xavier's School</td><td>Monument</td><td class="points-cell">100</td><td class="universe-cell">🧬 X-Men</td></tr>
+            <tr><td class="asset-cell">Kokushibo</td><td>Villain</td><td class="points-cell">100</td><td class="universe-cell">⚔️ Demon Slayer</td></tr>
+            <tr><td class="asset-cell">The Chosen One</td><td>Origin Story</td><td class="points-cell">100</td><td class="universe-cell">🌟 Star Wars</td></tr>
+            <tr><td class="asset-cell">Kruger</td><td>Mentor</td><td class="points-cell">100</td><td class="universe-cell">🦅 Power Rangers</td></tr>
+            <tr><td class="asset-cell">Itachi Uchiha</td><td>Iconic Personality</td><td class="points-cell">220</td><td class="universe-cell">🍥 Naruto</td></tr>
+            <tr><td class="asset-cell">Evolution</td><td>Philosophy</td><td class="points-cell">200</td><td class="universe-cell">🎮 Pokémon</td></tr>
+            <tr><td class="asset-cell">Mobius</td><td>Technology</td><td class="points-cell">100</td><td class="universe-cell">🦇 DC</td></tr>
+            <tr class="total-row"><td colspan="2" style="font-family:'Cinzel',serif;letter-spacing:2px;color:var(--parchment-dark);opacity:.8">Total Points from Acquired Assets</td><td class="points-cell">1020</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="trade-section">
+      <div class="trade-section-title">Assets We Sold — From Wizarding World to Other Universes</div>
+      <div class="trade-table-wrap">
+        <table class="trade-table">
+          <thead><tr><th>Asset Sold</th><th>Category</th><th style="text-align:center">Points</th><th>Universe</th></tr></thead>
+          <tbody>
+            <tr class="row-universe"><td colspan="4">Wizarding World → Other Universes <span>Assets transferred out</span></td></tr>
+            <tr><td class="asset-cell">Power of Love (Lily's Sacrifice)</td><td>Philosophy</td><td class="points-cell">200</td><td class="universe-cell">🎮 Pokémon</td></tr>
+            <tr><td class="asset-cell">Albus Dumbledore</td><td>Iconic Character</td><td class="points-cell">100</td><td class="universe-cell">⚔️ Demon Slayer</td></tr>
+            <tr><td class="asset-cell">Sword of Gryffindor</td><td>Weapon</td><td class="points-cell">100</td><td class="universe-cell">⚡ Avengers</td></tr>
+            <tr><td class="asset-cell">Time Turner</td><td>Technology</td><td class="points-cell">100</td><td class="universe-cell">🦇 DC</td></tr>
+            <tr><td class="asset-cell">Chosen One</td><td>Origin Story</td><td class="points-cell">100</td><td class="universe-cell">🌟 Star Wars</td></tr>
+            <tr><td class="asset-cell">Voldemort</td><td>Villain</td><td class="points-cell">100</td><td class="universe-cell">🦅 Power Rangers</td></tr>
+            <tr><td class="asset-cell">Azkaban Prison</td><td>Monument</td><td class="points-cell">100</td><td class="universe-cell">🧬 X-Men</td></tr>
+            <tr><td class="asset-cell">Mad-Eye Moody</td><td>Mentor</td><td class="points-cell">100</td><td class="universe-cell">🍥 Naruto</td></tr>
+            <tr class="total-row"><td colspan="2" style="font-family:'Cinzel',serif;letter-spacing:2px;color:var(--parchment-dark);opacity:.8">Total Points from Traded Assets</td><td class="points-cell">900</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="trade-section">
+      <div class="trade-section-title">Our Universe Trade Partners</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem">
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">⚡</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Avengers</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Marvel</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🧬</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">X-Men</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Marvel Mutant</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">⚔️</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Demon Slayer</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Kimetsu no Yaiba</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🌟</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Star Wars</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Galaxy Far Away</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🦅</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Power Rangers</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Mighty Morphin</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🍥</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Naruto</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Hidden Leaf</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🎮</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">Pokémon</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Gotta Catch 'Em</div></div>
+        <div style="background:rgba(10,6,8,.8);border:1px solid rgba(201,168,76,.2);padding:1.2rem;text-align:center;transition:border-color .3s,transform .3s" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)';this.style.transform='translateY(0)'"><div style="font-size:2rem;margin-bottom:.5rem">🦇</div><div style="font-family:'Cinzel Decorative',cursive;font-size:.75rem;color:var(--gold);letter-spacing:1px">DC Universe</div><div style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:2px;color:var(--parchment-dark);opacity:.5;margin-top:.3rem;text-transform:uppercase">Detective Comics</div></div>
+      </div>
+    </div>
+    <div class="final-score-block">
+      <div class="final-score-label">⚡ Wizarding World — Traded Points ⚡</div>
+      <div class="final-score-number">1920</div>
+      <div class="final-score-sub">Total Points Across All Assets</div>
+      <div class="final-score-breakdown">
+        <div class="breakdown-item"><span class="bi-num">1020</span><span class="bi-lbl">Acquired Assets</span></div>
+        <div class="breakdown-item" style="font-size:2rem;color:var(--gold)">+</div>
+        <div class="breakdown-item"><span class="bi-num">900</span><span class="bi-lbl">Traded Assets</span></div>
+        <div class="breakdown-item" style="font-size:2rem;color:var(--gold)">=</div>
+        <div class="breakdown-item"><span class="bi-num" style="color:var(--gold-bright);text-shadow:var(--glow-gold)">1920</span><span class="bi-lbl">Grand Total</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:2rem 0 0;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.4">⚜ The Forbidden Prophet · All Rights Reserved · Under the Fidelius Charm ⚜</div>
+  </div>
+</div>
+
+<!-- PAGE 5 — ASSET POSTERS -->
+<div id="page-posters" class="page">
+  <button class="posters-home-link" onclick="showPage('home')">Home</button>
+  <div class="posters-header">
+    <div class="posters-masthead">Sacred Relics</div>
+    <div class="posters-sub">⚜ The Nine Assets of the Wizarding World ⚜</div>
+    <div class="posters-decree">"These are the artefacts upon which our dominion was built — each a world unto itself."</div>
+  </div>
+  <div class="magic-divider">✦ · ⚜ · ✦ · ⚜ · ✦</div>
+  <div class="rune-banner"><div class="rune-banner-text">ᚠ Classified Under The Fidelius Charm ᚠ</div></div>
+  <div class="posters-grid">
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Monument" data-subtitle="Azkaban Prison" data-img="PAAP.png">
+      <div class="poster-img-wrap"><img src="PAAP.png" alt="Azkaban Prison" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(139,0,0,.55) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · I</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">I</div><div class="poster-title">Monument</div><div class="poster-subtitle">Azkaban Prison</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Weapon" data-subtitle="Sword of Gryffindor" data-img="SOGAP.png">
+      <div class="poster-img-wrap"><img src="SOGAP.png" alt="Sword of Gryffindor" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(45,10,78,.6) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · II</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">II</div><div class="poster-title">Weapon</div><div class="poster-subtitle">Sword of Gryffindor</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Philosophy" data-subtitle="Power of Love" data-img="POLAP.png">
+      <div class="poster-img-wrap"><img src="POLAP.png" alt="Power of Love" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(26,74,46,.6) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · III</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">III</div><div class="poster-title">Philosophy</div><div class="poster-subtitle">Power of Love</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Origin Story" data-subtitle="The Chosen One Prophecy" data-img="CAPAP.png">
+      <div class="poster-img-wrap"><img src="CAPAP.png" alt="The Chosen One" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(100,60,10,.65) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · IV</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">IV</div><div class="poster-title">Origin Story</div><div class="poster-subtitle">The Chosen One Prophecy</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Iconic Character" data-subtitle="Albus Dumbledore" data-img="DAP.jpeg" style="border:2px solid rgba(201,168,76,.5)">
+      <div class="poster-img-wrap"><img src="DAP.jpeg" alt="Dumbledore" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 60%,rgba(201,168,76,.22) 0%,rgba(4,2,8,.5) 100%)"></div>
+      <div class="poster-ribbon">Asset · V · Centre</div>
+      <div class="poster-click-hint"><div class="hint-orb" style="border-color:var(--gold-bright);color:var(--gold-bright)">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number" style="color:var(--gold-bright)">V</div><div class="poster-title" style="color:var(--gold)">Iconic Character</div><div class="poster-subtitle">Albus Dumbledore</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Villain" data-subtitle="Voldemort" data-img="VAP.png">
+      <div class="poster-img-wrap"><img src="VAP.png" alt="Voldemort" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(0,60,100,.55) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · VI</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">VI</div><div class="poster-title">Villain</div><div class="poster-subtitle">Voldemort</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Mentor" data-subtitle='Alastor "Mad-Eye" Moody' data-img="MAP.png">
+      <div class="poster-img-wrap"><img src="MAP.png" alt="Mad-Eye Moody" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(80,0,80,.6) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · VII</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">VII</div><div class="poster-title">Mentor</div><div class="poster-subtitle">Alastor "Mad-Eye" Moody</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Technology" data-subtitle="Time-Turner" data-img="TTAP.png">
+      <div class="poster-img-wrap"><img src="TTAP.png" alt="Time Turner" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(139,0,0,.5) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · VIII</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">VIII</div><div class="poster-title">Technology</div><div class="poster-subtitle">Time-Turner</div></div>
+    </div>
+
+    <div class="poster-card" onclick="openPoster(this)" data-title="Quote" data-subtitle="I Solemnly Swear I Am Up To No Good" data-img="QAP.png">
+      <div class="poster-img-wrap"><img src="QAP.png" alt="Quote" loading="lazy"></div>
+      <div class="poster-tint" style="background:radial-gradient(ellipse at 50% 80%,rgba(26,74,46,.55) 0%,rgba(4,2,8,.35) 100%)"></div>
+      <div class="poster-ribbon">Asset · IX</div>
+      <div class="poster-click-hint"><div class="hint-orb">✦</div><div class="hint-label">Reveal Relic</div></div>
+      <div class="poster-info"><div class="poster-number">IX</div><div class="poster-title">Quote</div><div class="poster-subtitle">I Solemnly Swear I Am Up To No Good</div></div>
+    </div>
+
+  </div>
+  <div class="posters-footer-note">⚜ Nine Relics · Nine Worlds · One Dominion · Under the Fidelius Charm ⚜</div>
+</div>
+
+<!-- MAGICAL LIGHTBOX -->
+<div id="poster-lightbox">
+  <div class="lb-backdrop" onclick="closePoster()"></div>
+  <div id="lb-rune-ring">
+    <!-- rune chars injected by JS -->
+    <div id="lb-dust"></div>
+    <div id="lb-poster-wrap">
+      <button id="lb-close-btn" onclick="closePoster()">✕</button>
+      <img id="lb-poster-img" src="" alt="">
+      <div id="lb-poster-info">
+        <div id="lb-poster-category"></div>
+        <div id="lb-poster-title"></div>
+        <div id="lb-poster-subtitle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+/* ── PERFORMANCE: detect mobile ── */
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 700;
+
+/* ── PAGE NAVIGATION ── */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  const page=document.getElementById('page-'+id);
+  const btn=document.getElementById('nav-'+id);
+  if(page){page.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+  if(btn)btn.classList.add('active');
+  if(id==='newspaper')npInitPages();
+  if(id==='assets')buildAssetCards();
+}
+window.showPage=showPage;
+
+/* ── LOADING ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loading-screen').classList.add('gone'),1800);
+});
+
+/* ── PARTICLES (desktop only, reduced count on mobile) ── */
+const canvas=document.getElementById('particles-canvas');
+const ctx=canvas.getContext('2d');
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+resizeCanvas();
+window.addEventListener('resize',resizeCanvas,{passive:true});
+const PCOUNT = isMobile ? 30 : 80;
+const COLORS=['rgba(201,168,76,','rgba(240,192,64,','rgba(192,192,192,','rgba(139,0,0,','rgba(100,160,255,'];
+const particles=Array.from({length:PCOUNT},()=>({
+  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+  r:Math.random()*2+.4,speed:Math.random()*.4+.1,drift:(Math.random()-.5)*.2,
+  opacity:Math.random()*.5+.1,opDir:Math.random()>.5?1:-1,
+  color:COLORS[Math.floor(Math.random()*COLORS.length)]
+}));
+let lastFrame=0;
+function animParticles(ts){
+  if(ts-lastFrame < (isMobile?50:16)){requestAnimationFrame(animParticles);return}
+  lastFrame=ts;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y-=p.speed;p.x+=p.drift;p.opacity+=.004*p.opDir;
+    if(p.opacity>.65||p.opacity<.05)p.opDir*=-1;
+    if(p.y<-10){p.y=canvas.height+10;p.x=Math.random()*canvas.width}
+    if(p.x<-10||p.x>canvas.width+10)p.x=Math.random()*canvas.width;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.color+p.opacity+')';
+    ctx.fill();
+  });
+  requestAnimationFrame(animParticles);
+}
+requestAnimationFrame(animParticles);
+
+/* ── MOUSE SPARKLE (desktop only) ── */
+if(!isMobile){
+  document.addEventListener('mousemove',e=>{
+    if(Math.random()>.75)return;
+    const s=document.createElement('div');
+    s.style.cssText=`position:fixed;pointer-events:none;z-index:9998;left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;border-radius:50%;background:rgba(201,168,76,.8);box-shadow:0 0 6px rgba(201,168,76,.8);transform:translate(-50%,-50%);animation:sparkFade .6s ease forwards`;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),700);
+  });
+  const sStyle=document.createElement('style');
+  sStyle.textContent='@keyframes sparkFade{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) translateY(-20px) scale(0)}}';
+  document.head.appendChild(sStyle);
+}
+
+/* ── LAZY ASSET CARDS ── */
+const ASSET_DATA=[
+  {badge:'Public',src:'https://www.youtube.com/embed/8idHhYBSbFU?si=3FZHJaGRp_75itv5',cat:'Monument',name:'Azkaban Prison',desc:'The most feared fortress in the wizarding world — where dementors guard souls and despair reigns eternal.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/o8ouUhlbihs?si=14yBhy0HIHPWnzFq',cat:'Philosophy',name:"Power of Love — Lily's Sacrifice",desc:"Ancient magic older than memory: a mother's love becomes the most impenetrable shield."},
+  {badge:'Public',src:'https://youtube.com/embed/ia9MSexFdLY?si=j6Zn86m1MbdRUBpv',cat:'Weapon',name:'Sword of Gryffindor',desc:'Forged by goblins, summoned by the worthy. Imbibes what makes it stronger — basilisk venom sealed its legendary power.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/A-vD2dIqSpM?si=7XUJaNotezUV8esc',cat:'Iconic Character',name:'Albus Dumbledore',desc:'Greatest wizard of the age — his wisdom transcends death, his schemes span decades, and his sacrifice echoes through eternity.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/Er4zFJF4jLw?si=g4Ykta5ypPnSEz8S',cat:'Villain',name:'Voldemort',desc:'He-Who-Must-Not-Be-Named. Lord Voldemort fractured his own soul to cheat death.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/ATiHnmBCbVc',cat:'Mentor',name:'Mad-Eye Moody',desc:'Constant vigilance. The greatest Auror of his generation — battle-scarred, a warrior\'s wisdom beyond compare.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/paJtJVqyEzs',cat:'Technology',name:'Time Turner',desc:'A device of terrifying elegance — spin it and unravel time itself. The Ministry kept them locked away for good reason.'},
+  {badge:'Public',src:'https://www.youtube.com/embed/hEqjaMFwHpA',cat:'Origin Story',name:'The Chosen One',desc:'A boy born under prophecy, marked by death\'s own hand. The lightning-bolt scar carries the weight of every soul Voldemort ever claimed.'},
+  {badge:'Private',src:'https://www.youtube.com/embed/WxzNhL4wxAY?si=aZzsAqvwQ7Yd8mgS',cat:'Quote',name:'I solemnly swear I am up to no good',desc:'Sealed by ancient magic. This quote carries power beyond measure — revealed only to those deemed worthy.'},
+];
+let assetsBuilt=false;
+function buildAssetCards(){
+  if(assetsBuilt)return;
+  assetsBuilt=true;
+  const grid=document.getElementById('assetsGrid');
+  ASSET_DATA.forEach((a,i)=>{
+    const isPrivate=a.badge==='Private';
+    const div=document.createElement('div');
+    div.className='asset-card';
+    div.style.animationDelay=(i*.1)+'s';
+    if(isPrivate)div.style.borderColor='rgba(139,0,0,.5)';
+    div.innerHTML=`
+      <div class="asset-type-badge${isPrivate?' private':''}">${isPrivate?'🔒 ':''} ${a.badge}</div>
+      <div class="asset-video-wrap">
+        <iframe src="${a.src}" title="Asset video" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <div class="video-overlay"${isPrivate?' style="background:linear-gradient(135deg,rgba(139,0,0,.3),rgba(10,6,8,.2))"':''}></div>
+        <div class="mini-play"${isPrivate?' style="border-color:var(--crimson-light);color:var(--crimson-light)"':''}>▶</div>
+      </div>
+      <div class="asset-info">
+        <div class="asset-category"${isPrivate?' style="color:var(--crimson-light)"':""}>${a.cat}</div>
+        <div class="asset-name"${isPrivate?' style="color:var(--crimson-light)"':""}>${a.name}</div>
+        <div class="asset-desc">${a.desc}</div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+
+/* ── NEWSPAPER BOOK FLIP (pages injected lazily) ── */
+const NP_PAGES=[
+  {left:{tag:'Monument',headline:'The Prison That Swallows Hope: Azkaban Stands Eternal',sub:'Wizarding World · Monument Asset',body:'<p>Deep in the North Sea, where mist never lifts and the sun has long forgotten how to shine, rises the most feared structure in all of magical Britain. Azkaban Prison has stood for centuries as a monument not merely to confinement but to the systematic destruction of the human spirit.</p><p>Its walls were constructed to hold the darkest practitioners of the Dark Arts, yet what truly imprisons the inmates is not stone and mortar but the dementors — souls of shadow that consume joy with every cold breath they exhale.</p>'},right:{cap:'Monument · Azkaban · Classified Footage',src:'https://www.youtube.com/embed/-CRlgNG1CKg'}},
+  {right:{tag:'Philosophy',headline:'Love as the Oldest Magic: Why Voldemort Could Never Win',sub:'Wizarding World · Philosophy Asset',body:'<p>The killing curse is perhaps the most feared incantation in existence — yet on the night of October 31st, 1981, it shattered against something the Dark Lord could not comprehend: a mother\'s love freely given unto death.</p><p>Lily Potter made a choice that night. She could have stepped aside. Instead she stood before her son and invoked a counter-charm older than memory, ancient beyond the first dark wizard\'s dreaming.</p>'},left:{cap:'Philosophy · Power of Love',src:'https://www.youtube.com/embed/Da6BTn_0Ywk'}},
+  {left:{tag:'Weapon',headline:'Forged in Goblin-Fire: The Sword That Chose Its Wielder',sub:'Wizarding World · Weapon Asset',body:'<p>Godric Gryffindor\'s sword does not merely cut — it transforms. Crafted by the master goblin smith Ragnuk the First, it is one of the few wizard artefacts that goblins consider rightfully theirs.</p><p>What makes the sword extraordinary is its nature: it absorbs into itself that which makes it stronger. When Harry Potter slew the basilisk in the Chamber of Secrets, the blade drank in the serpent\'s venom.</p>'},right:{cap:'Weapon · Sword of Gryffindor',src:'https://www.youtube.com/embed/Gu1EWHgWB20'}},
+  {right:{tag:'Iconic Character',headline:'Dumbledore: The Architect of Light in an Age of Shadow',sub:'Wizarding World · Iconic Character Asset',body:'<p>To speak of Albus Percival Wulfric Brian Dumbledore is to speak of the wizarding world\'s greatest paradox: a man of extraordinary power who devoted his life to the principle that love and wisdom would always outlast domination and fear.</p><p>Headmaster. Alchemist. Deceiver of Dark Lords. He orchestrated the defeat of two of the most dangerous dark wizards in history.</p>'},left:{cap:'Iconic Character · Albus Dumbledore',src:'https://www.youtube.com/embed/L14E4QCE0wY'}},
+  {left:{tag:'Villain',headline:'He-Who-Must-Not-Be-Named: The Terror That Refused to Die',sub:'Wizarding World · Villain Asset',body:'<p>Tom Marvolo Riddle was once a brilliant orphan boy who walked through Hogwarts\' halls and dreamed of something most wizards dare not whisper: immortality. The price he paid for that dream was his humanity — split, fractured, and sealed into seven cursed objects scattered across the world.</p><p>Voldemort ruled through absolute terror. His name alone became a weapon.</p>'},right:{cap:'Villain · Lord Voldemort',src:'https://www.youtube.com/embed/WF2HTECbe44'}},
+  {right:{tag:'Mentor',headline:'Constant Vigilance: The Auror Who Saw Through Every Lie',sub:'Wizarding World · Mentor Asset',body:'<p>Alastor "Mad-Eye" Moody spent a lifetime fighting the Darkness and earned every scar, every twitch, and that legendary magical eye. As the greatest Auror of his generation, he sent more dark wizards to Azkaban than any other in history.</p><p>His genius as a mentor lay not in comfort but in preparation — "constant vigilance" as survival philosophy forged in decades of warfare.</p>'},left:{cap:'Mentor · Mad-Eye Moody',src:'https://www.youtube.com/embed/f1nESnxaDAI'}},
+  {left:{tag:'Technology',headline:"The Paradox Engine: A Time Turner's Dangerous Gift",sub:'Wizarding World · Technology Asset',body:'<p>The Ministry of Magic kept their Time Turners in the Department of Mysteries for a reason — because a device that lets you step backward through time is not merely powerful, it is catastrophically dangerous in the wrong hands.</p><p>Hermione Granger used one throughout her third year, attending multiple classes simultaneously, before she and Harry rewound hours to save both a hippogriff and a condemned man.</p>'},right:{cap:'Technology · Time Turner',src:'https://youtube.com/shorts/mKRuXg_fy5k'}},
+  {right:{tag:'Origin Story',headline:'The Boy Who Lived: A Prophecy Written in Lightning',sub:'Wizarding World · Origin Story Asset',body:'<p>Neither can live while the other survives. Seven words from a prophecy set in motion events that would define an entire generation. Harry James Potter was born as the seventh month died, marked by the Dark Lord as his equal — and survived the killing curse as a one-year-old child.</p><p>The lightning-bolt scar on his forehead is not merely a wound — it is a direct link to Voldemort.</p>'},left:{cap:'Origin Story · The Chosen One',src:'https://youtube.com/shorts/GngluyIqIAg'}},
+  {left:{tag:'Private',headline:'The Forbidden Quote: Words That Shall Not Be Spoken Aloud',sub:'Private Asset · Inner Circle Clearance Required',body:'<p>Some truths are too dangerous for public consumption. The quote that Wizarding World guards as its most precious private asset is not merely words — it is an incantation, a declaration, a truth that, once heard, rewrites how you see the entire story.</p><p>The Ministry has tried to suppress it. This secret remains sealed in the Inner Circle of The Forbidden Prophet.</p>',private:true},right:{cap:'🔒 Inner Circle Clearance Required',src:'https://www.youtube.com/embed/EFgegaebtmU',private:true}},
+];
+let npPagesBuilt=false;
+const TOTAL_PAGES=9;
+let npCurrent=0,npFlipping=false;
+function npInitPages(){
+  if(npPagesBuilt)return;
+  npPagesBuilt=true;
+  const stage=document.getElementById('bookStage');
+  NP_PAGES.forEach((pd,i)=>{
+    const pageNum=i+1;
+    const isPrivate=pd.left&&pd.left.private;
+    const div=document.createElement('div');
+    div.className='book-page'+(isPrivate?' private-page':'');
+    div.id='np-page-'+pageNum;
+    const buildSide=(side,align)=>{
+      if(!side)return`<div class="page-${align}"></div>`;
+      const alignR=align==='right';
+      const txtColor=side.private?'color:var(--crimson-light)':'';
+      if(side.src){
+        return`<div class="page-${align}">
+          <div class="page-num-strip"${alignR?' style="text-align:right'+( side.private?';color:var(--crimson-light)':'')+'"':''}>The Forbidden Prophet · Page ${pageNum} of ${TOTAL_PAGES}${side.private?' · Eyes Only':''}</div>
+          <div class="page-video"${side.private?' style="border-color:rgba(139,0,0,.4)"':''}>
+            <iframe src="${side.src}" title="Page video" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="page-video-cap"${side.private?' style="color:var(--crimson-light)"':''}>${side.cap}</div>
+          <div class="page-ornament" style="margin-top:auto${side.private?';color:var(--crimson-light)':''}">⚜ · ✦ · ⚜</div>
+        </div>`;
+      }
+      return`<div class="page-${align}">
+        <div class="page-num-strip"${alignR?' style="text-align:right"':''}>The Forbidden Prophet · Page ${pageNum} of ${TOTAL_PAGES}</div>
+        <div class="page-asset-tag${side.private?' private-tag':''}">${side.tag}</div>
+        <div class="page-headline" style="${txtColor}">${side.headline}</div>
+        <div class="page-subhead" style="${txtColor}">${side.sub}</div>
+        <div class="page-ornament" style="${txtColor}">⚜ · ✦ · ⚜</div>
+        <div class="page-body">${side.body}</div>
+      </div>`;
+    };
+    const leftContent=pd.left&&pd.left.src?buildSide(pd.left,'left'):buildSide(pd.left,'left');
+    const rightContent=pd.right&&pd.right.src?buildSide(pd.right,'right'):buildSide(pd.right,'right');
+    div.innerHTML=`<div class="parchment-grain"></div><div class="page-inner">${leftContent}${rightContent}</div>`;
+    stage.appendChild(div);
+  });
+  npInitDots();
+}
+const PAGE_LABELS=['Cover','I · Monument','II · Philosophy','III · Weapon','IV · Iconic Char.','V · Villain','VI · Mentor','VII · Technology','VIII · Origin Story','IX · Private 🔒'];
+function npInitDots(){
+  const dotsEl=document.getElementById('npDots');
+  if(!dotsEl||dotsEl.children.length)return;
+  for(let i=0;i<=TOTAL_PAGES;i++){
+    const d=document.createElement('div');
+    d.className='page-dot'+(i===0?' active':'');
+    d.title=PAGE_LABELS[i];
+    d.onclick=(idx=>()=>npGoTo(idx))(i);
+    dotsEl.appendChild(d);
+  }
+  npUpdateControls();
+}
+function npUpdateControls(){
+  document.querySelectorAll('.page-dot').forEach((d,i)=>d.classList.toggle('active',i===npCurrent));
+  document.getElementById('npPrevBtn').disabled=npCurrent===0;
+  document.getElementById('npNextBtn').disabled=npCurrent===TOTAL_PAGES;
+  const c=document.getElementById('npCounter');
+  if(c)c.textContent=npCurrent===0?'Cover':('Page '+npCurrent+' / '+TOTAL_PAGES);
+}
+function npGoTo(target){
+  if(npFlipping||target===npCurrent)return;
+  const dir=target>npCurrent?'forward':'backward';
+  const fromEl=document.getElementById('np-page-'+npCurrent);
+  const toEl=document.getElementById('np-page-'+target);
+  if(!fromEl||!toEl){npFlipping=false;return}
+  npFlipping=true;
+  const outClass=dir==='forward'?'flip-out':'flip-back-out';
+  const inClass=dir==='forward'?'flip-in':'flip-back-in';
+  fromEl.classList.add(outClass);
+  setTimeout(()=>{
+    fromEl.classList.remove('active',outClass);
+    toEl.style.display='flex';
+    toEl.classList.add(inClass);
+    setTimeout(()=>{
+      toEl.classList.remove(inClass);
+      toEl.classList.add('active');
+      npCurrent=target;npUpdateControls();npFlipping=false;
+    },600);
+  },600);
+}
+function npFlip(dir){const t=npCurrent+dir;if(t>=0&&t<=TOTAL_PAGES)npGoTo(t);}
+window.npFlip=npFlip;
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('page-newspaper').classList.contains('active'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')npFlip(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')npFlip(-1);
+});
+let touchStartX=0;
+document.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(!document.getElementById('page-newspaper').classList.contains('active'))return;
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(dx)>50)npFlip(dx<0?1:-1);
+},{passive:true});
+
+/* ═══════════════════════════════════════════
+   MAGICAL POSTER LIGHTBOX
+   ═══════════════════════════════════════════ */
+const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+const lb=document.getElementById('poster-lightbox');
+const lbRing=document.getElementById('lb-rune-ring');
+const lbWrap=document.getElementById('lb-poster-wrap');
+const lbImg=document.getElementById('lb-poster-img');
+const lbCat=document.getElementById('lb-poster-category');
+const lbTitle=document.getElementById('lb-poster-title');
+const lbSub=document.getElementById('lb-poster-subtitle');
+const lbDust=document.getElementById('lb-dust');
+
+/* Build rune ring */
+const RUNE_COUNT=24;
+for(let i=0;i<RUNE_COUNT;i++){
+  const span=document.createElement('span');
+  span.className='lb-rune-char';
+  span.textContent=RUNES[i%RUNES.length];
+  const angle=(i/RUNE_COUNT)*360;
+  const rad=angle*(Math.PI/180);
+  const R=isMobile?160:220;
+  span.style.left=`calc(50% + ${Math.cos(rad)*R}px - .5em)`;
+  span.style.top=`calc(50% + ${Math.sin(rad)*R}px - .5em)`;
+  lbRing.appendChild(span);
+}
+/* Animate runes spinning */
+let runeAngle=0,runeAnim=null;
+function spinRunes(){
+  runeAngle+=0.4;
+  const chars=lbRing.querySelectorAll('.lb-rune-char');
+  const R=isMobile?160:220;
+  chars.forEach((c,i)=>{
+    const angle=((i/RUNE_COUNT)*360+runeAngle)*(Math.PI/180);
+    c.style.left=`calc(50% + ${Math.cos(angle)*R}px - .5em)`;
+    c.style.top=`calc(50% + ${Math.sin(angle)*R}px - .5em)`;
+  });
+  runeAnim=requestAnimationFrame(spinRunes);
+}
+
+/* Build dust motes */
+function buildDust(){
+  lbDust.innerHTML='';
+  for(let i=0;i<(isMobile?10:18);i++){
+    const m=document.createElement('div');
+    m.className='dust-mote';
+    const x=Math.random()*100,y=Math.random()*100;
+    const sz=Math.random()*4+2;
+    const delay=Math.random()*3,dur=2+Math.random()*2;
+    m.style.cssText=`left:${x}%;bottom:${y}%;width:${sz}px;height:${sz}px;background:rgba(201,168,76,${.4+Math.random()*.4});animation-delay:${delay}s;animation-duration:${dur}s`;
+    lbDust.appendChild(m);
+  }
+}
+
+/* Spark burst at click origin */
+function burstSparks(originX,originY){
+  const COUNT=isMobile?16:28;
+  const COLORS_S=['rgba(201,168,76,1)','rgba(240,192,64,1)','rgba(255,255,180,1)','rgba(255,255,255,.9)','rgba(192,120,40,1)'];
+  for(let i=0;i<COUNT;i++){
+    const s=document.createElement('div');
+    const angle=Math.random()*Math.PI*2;
+    const dist=60+Math.random()*120;
+    const dx=Math.cos(angle)*dist,dy=Math.sin(angle)*dist;
+    const sz=2+Math.random()*4;
+    const color=COLORS_S[Math.floor(Math.random()*COLORS_S.length)];
+    const dur=.6+Math.random()*.5;
+    s.className='lb-spark';
+    s.style.cssText=`left:${originX}px;top:${originY}px;width:${sz}px;height:${sz}px;background:${color};box-shadow:0 0 ${sz*2}px ${color};--dx:${dx}px;--dy:${dy}px;animation-duration:${dur}s`;
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),(dur+.1)*1000);
+  }
+}
+
+window.openPoster=function(card){
+  const rect=card.getBoundingClientRect();
+  const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+  lbImg.src=card.dataset.img;
+  lbCat.textContent=card.dataset.title;
+  lbTitle.textContent=card.dataset.title;
+  lbSub.textContent=card.dataset.subtitle;
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+  buildDust();
+  burstSparks(cx,cy);
+  requestAnimationFrame(()=>{
+    lb.classList.add('revealed');
+    lbRing.classList.add('glow');
+    spinRunes();
+    setTimeout(()=>{lbWrap.classList.add('popped')},120);
+  });
+};
+
+window.closePoster=function(){
+  lbWrap.classList.remove('popped');
+  lb.classList.remove('revealed');
+  cancelAnimationFrame(runeAnim);runeAnim=null;
+  lbRing.classList.remove('glow');
+  setTimeout(()=>{lb.classList.remove('open');document.body.style.overflow=''},500);
+};
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePoster();});
+
+})();
+</script>
+</body>
+</html>
